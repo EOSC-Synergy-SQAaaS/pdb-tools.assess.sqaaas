@@ -1,0 +1,58 @@
+config:
+  credentials: []
+  project_repos:
+    github.com/EOSC-synergy/sqaaas-tooling:
+      branch: release/1.7.7
+      repo: https://github.com/EOSC-synergy/sqaaas-tooling
+    github.com/haddocking/pdb-tools:
+      branch: master
+      repo: https://github.com/haddocking/pdb-tools
+environment:
+  JPL_DOCKERFORCEBUILD: enabled
+  JPL_KEEPGOING: enabled
+sqa_criteria:
+  QC.Acc:
+    repos:
+      github.com/haddocking/pdb-tools git:
+        commands:
+        - /usr/bin/env sh .sqa/script.goopy-ivory-scorpion.sh
+        container: qc.acc_leaky-sangria-gibbon
+  QC.Doc:
+    repos:
+      github.com/haddocking/pdb-tools find_doc_files.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.woozy-white-dalmatian.sh
+        container: qc.doc_hazy-magnolia-skunk
+      github.com/haddocking/pdb-tools git:
+        commands:
+        - /usr/bin/env sh .sqa/script.hasty-tangerine-jackal.sh
+        container: qc.doc_lumpy-lime-toad
+      github.com/haddocking/pdb-tools markdownlint:
+        commands:
+        - /usr/bin/env sh .sqa/script.grumpy-khaki-blue.sh
+        container: qc.doc_freaky-white-cassowary
+  QC.Lic:
+    repos:
+      github.com/haddocking/pdb-tools licensee:
+        commands:
+        - /usr/bin/env sh .sqa/script.cloudy-purple-ocelot.sh
+        container: qc.lic_stuffy-razzmatazz-tapir
+  QC.Sec:
+    repos:
+      github.com/haddocking/pdb-tools bandit:
+        commands:
+        - /usr/bin/env sh .sqa/script.scummy-cyan-gorilla.sh
+        container: qc.sec_shaggy-emerald-swan
+  QC.Sty:
+    repos:
+      github.com/haddocking/pdb-tools flake8:
+        commands:
+        - /usr/bin/env sh .sqa/script.pasty-thistle-deer.sh
+        container: qc.sty_hasty-copper-robin
+  QC.Ver:
+    repos:
+      github.com/haddocking/pdb-tools get_git_tags.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.sleepy-eggplant-lemur.sh
+        container: qc.ver_lousy-jade-walrus
+timeout: 5400
